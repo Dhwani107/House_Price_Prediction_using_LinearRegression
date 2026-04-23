@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --card-bg: rgba(255, 255, 255, 0.86);
+            --text-main: #2f3440;
+            --text-sub: #6b7385;
+            --accent: #6c8ba8;
+            --accent-hover: #587a99;
+            --input-border: #d8dde7;
+            --shadow: 0 24px 60px rgba(32, 40, 56, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            font-family: "Manrope", "Segoe UI", sans-serif;
+            color: var(--text-main);
+            background-image:
+                linear-gradient(rgba(245, 248, 252, 0.72), rgba(245, 248, 252, 0.72)),
+                url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1800&q=80");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .card {
+            width: min(560px, 100%);
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 30px 28px;
+            backdrop-filter: blur(8px);
+        }
+
+        h2 {
+            margin: 0 0 8px;
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 32px;
+            line-height: 1.15;
+            color: #2a313d;
+        }
+
+        .subtitle {
+            margin: 0 0 22px;
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        form {
+            display: grid;
+            gap: 12px;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid var(--input-border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 14px;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.9);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            border-color: #9db4ca;
+            box-shadow: 0 0 0 4px rgba(157, 180, 202, 0.2);
+        }
+
+        button {
+            margin-top: 4px;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            background: var(--accent);
+            cursor: pointer;
+            transition: transform 0.15s ease, background-color 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        h3 {
+            margin: 18px 0 0;
+            font-size: 16px;
+            color: #2f465c;
+            min-height: 22px;
+        }
+
+        @media (max-width: 560px) {
+            .card {
+                padding: 22px 18px;
+                border-radius: 16px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="card">
+        <h2>Enter House Details</h2>
+        <p class="subtitle">Fill the fields below to estimate your property value.</p>
+
+        <form action="http://127.0.0.1:5000/predict" method="post">
+
+            <input type="text" name="MSSubClass" placeholder="MSSubClass (e.g., 20, 60)">
+            <input type="text" name="LotArea" placeholder="Lot Area" required>
+            <input type="text" name="OverallCond" placeholder="Overall Condition (1-10)" required>
+            <input type="text" name="YearBuilt" placeholder="Year Built" required>
+            <input type="text" name="YearRemodAdd" placeholder="Year Remodeled" required>
+            <input type="text" name="BsmtFinSF2" placeholder="Basement Finished Area 2">
+            <input type="text" name="TotalBsmtSF" placeholder="Basement Area" required>
+
+            <button type="submit">Predict Price</button>
+        </form>
+
+        <h3>{{ prediction_text }}</h3>
+    </main>
+
+</body>
+</html>
